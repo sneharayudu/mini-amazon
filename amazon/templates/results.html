@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{message}}
+<h1>{{results|length}} matches for "{{query}}"</h1>
+<div>
+      {% for result in results %}
+
+          <b>{{result.name}}</b>
+          description: {{result.desc}}
+          price : {{result.price}}
+          <form action="/api/cart" method="post">
+              <input type="text" name="op_type" value="add_cart" hidden>
+              <input type="text" name="product_id" value="{{ result._id }}" hidden>
+              <input type="submit" value="add_to_cart">
+          </form>
+
+      {% endfor %}
+</div>
+
+</body>

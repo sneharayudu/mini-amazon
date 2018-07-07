@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{message}}
+<h1>{{results|length}} matches for "{{query}}"</h1>
+<div>
+      {% for result in results %}
+
+          <b>{{result.name}}</b>
+          description: {{result.desc}}
+          price : {{result.price}}
+          <form action="/api/product" method="post">
+              <input type="text" name="op_type" value="delete" hidden>
+              <input type="text" name="product_id" value="{{result._id}}" hidden>
+              <input type="submit" value="delete">
+          </form>
+          <h2>update product</h2>
+            <form action="/api/product" method="post">
+            <input type="text" name="op_type" value="update" hidden>
+            <input type="text" name="product_id" value="{{result._id}}" hidden>
+            <input type="text" name="name" placeholder="new name" >
+            <input type="text" name="desc" placeholder="new description" >
+            <input type="number" name="price" placeholder="new price" >
+            <input type="submit" value="update">
+            </form>
+
+      {% endfor %}
+</div>
+
+</body>

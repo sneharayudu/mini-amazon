@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mini-amazon</title>
+</head>
+<body>
+    <h3>{{ message }}</h3>
+
+    <form action="/api/cart" method="post">
+        <input type="text" name="op_type"  value="retrive" hidden>
+        <input type="submit" value="View Cart">
+    </form>
+
+    <h2>Search</h2>
+    <form action="/api/user" method="get">
+        <input type="text" name="name" placeholder="name" required>
+        <input type="submit" value="search">
+    </form>
+<a href="/api/logout">logout</a>
+</body>
+</html>

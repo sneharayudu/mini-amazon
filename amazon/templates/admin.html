@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mini-amazon</title>
+</head>
+<body>
+<h1>
+    welcome admin </h1>
+<h4>  {{message}} </h4>
+<h2>add product</h2>
+<form action="/api/product" method="post">
+    <input type="text" name="op_type" value="add" hidden>
+    <input type="text" name="name" placeholder="name" required>
+    <input type="text" name="desc" placeholder="description" required>
+    <input type="number" name="price" placeholder="price" required>
+    <input type="submit" value="add"></form>
+
+<h2>search product</h2>
+<form action="/api/product" method="get">
+
+    <input type="text" name="name" placeholder="name" required>
+    <input type="submit" value="search"></form>
+
+
+<a href="/api/logout">logout</a>
