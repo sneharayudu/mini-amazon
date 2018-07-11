@@ -7,13 +7,20 @@ from bson.objectid import ObjectId
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html', message='20% off with paypal')
+    if 'user_id' in session:
+        user_details = user_model.search_by_user_id(session['user_id'])
+        return render_template('home.html',name = user_details['name'])
+    else:
+        return render_template('index.html', message='20% off with paypal')
 
 
 @app.route('/admin', methods=['GET'])
 def admin():
-
-    return render_template('admin.html', message='welcome')
+    if 'user_id' in session:
+        user_details = user_model.search_by_user_id(session['user_id'])
+        return render_template('admin.html',name = user_details['name'])
+    else:
+        return render_template('index.html', message='20% off with paypal')
 
 
 @app.route('/api/logout',methods=['GET'])
@@ -89,11 +96,11 @@ def user():
         password = request.form['password']
         success = user_model.authenticate(username, password)
         if success:
+            user_details = user_model.search_by_username(username)
+            session['user_id'] = str(user_details['_id'])
             if username == 'admin':
                 return  render_template('admin.html',message = 'welcome admin')
             else:
-                user_details = user_model.search_by_username(username)
-                session['user_id']=str(user_details['_id'])
                 return render_template('home.html', message = 'sucessfull login')
         else:
             return render_template('index.html', message='unsucessfull login')
@@ -142,7 +149,7 @@ def cart():
         for p_id in cart_items_ids:
             cart_item =product_model.get_details(p_id)
             cart_items.append(cart_item)
-            total += cart_item['price']
+            total += int(cart_item['price'])
         return render_template('cart.html',results=cart_items,name = user_details['name'],total = total)
 
 
